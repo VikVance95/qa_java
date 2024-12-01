@@ -20,7 +20,7 @@ public class CatTest {
         Cat cat = new Cat(feline);
         String expectedResult = "Мяу";
         String actualResult = cat.getSound();
-        assertEquals(expectedResult, actualResult);
+        assertEquals("Кошка не мяукает", expectedResult, actualResult);
     }
 
     @Test //Проверка, что метод getFood() возвращает еду для кошки
@@ -28,6 +28,6 @@ public class CatTest {
         Cat cat = new Cat(feline);
         List<String> expected = List.of("Животные", "Птицы", "Рыба");
         Mockito.when(feline.eatMeat()).thenReturn(expected);
-        assertEquals(expected, cat.getFood());
+        assertEquals("Кошка питается неправильно", expected, cat.getFood());
     }
 }

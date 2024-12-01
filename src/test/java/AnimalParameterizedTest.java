@@ -7,47 +7,40 @@ import org.junit.runners.Parameterized;
 
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+
 @RunWith(Parameterized.class)
 public class AnimalParameterizedTest {
-    private final String animalKind;
-    private final List<String> expectedList;
-    Animal animal;
 
+    private final String kindOfAnimal;
+    private final List<String> expected;
 
-    public AnimalParameterizedTest(String animalKind, List<String> expectedList) {
-        this.animalKind = animalKind;
-        this.expectedList = expectedList;
+    public AnimalParameterizedTest(String kindOfAnimal, List<String> expected) {
+        this.kindOfAnimal = kindOfAnimal;
+        this.expected = expected;
     }
 
     @Parameterized.Parameters
-    public static Object[][] getTestData() {
-        return new Object[][]{
+    public static Object[] getListOfMealDataForHerbivoreAndPredator() {
+        return new Object[][] {
                 {"Травоядное", List.of("Трава", "Различные растения")},
-                {"Хищник", List.of("Животные", "Птицы", "Рыба")},
-                {"Нечто", List.of("")},
+                {"Хищник", List.of("Животные", "Птицы", "Рыба")}
+
         };
     }
 
-    @Before
-    public void initAnimal() {
-        animal = new Animal();
+    @Test
+    public void getAnimalFoodTest() throws Exception {
+        Animal animal = new Animal();
+        List<String> actualResult = animal.getFood(kindOfAnimal);
+        Assert.assertEquals(expected, actualResult);
     }
 
-    @Test //Проверка на неверный пол
-    public void getFoodParameterized() {
-        try {
-            List<String> actualList = animal.getFood(animalKind);
-            Assert.assertEquals(expectedList, actualList);
-        } catch (Exception exception) {
-            System.out.println(exception.getMessage());
-        }
-    }
-
-    @Test //Проверка, что метод getFamily() выводит нужную строку
-    public void getFamilyReturnsLongString() {
+    @Test
+    public void testOfAnimalGetFamily() {
+        Animal animal = new Animal();
         String actual = animal.getFamily();
         String expected = "Существует несколько семейств: заячьи, беличьи, мышиные, кошачьи, псовые, медвежьи, куньи";
-        Assert.assertEquals(expected, actual);
-
+        assertEquals(expected, actual);
     }
 }
