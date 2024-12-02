@@ -1,8 +1,10 @@
 import com.example.Feline;
 import com.example.Lion;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
+import org.mockito.Mockito;
 
 import static org.junit.Assert.assertEquals;
 
@@ -11,6 +13,13 @@ public class LionParametrizedTest {
 
     private final String sex;
     private final boolean hasMane;
+    private Feline feline;
+    private Lion lion;
+
+    @Before
+    public void setUp() {
+        feline = Mockito.mock(Feline.class);
+    }
 
     public LionParametrizedTest(String sex, boolean hasMane) {
         this.sex = sex;
@@ -27,8 +36,8 @@ public class LionParametrizedTest {
 
     @Test //Проверка наличия гривы
     public void doesHaveManeTest() throws Exception {
-        Feline feline = new Feline();
-        Lion lion = new Lion(sex, feline);
-        assertEquals(hasMane, lion.doesHaveMane());
+        lion = new Lion(sex, feline);
+        boolean actual = lion.doesHaveMane();
+        assertEquals(hasMane, actual);
     }
 }

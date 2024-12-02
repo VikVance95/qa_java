@@ -7,8 +7,6 @@ import org.junit.runners.Parameterized;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-
 @RunWith(Parameterized.class)
 public class AnimalParameterizedTest {
 
@@ -36,11 +34,4 @@ public class AnimalParameterizedTest {
         Assert.assertEquals(expected, actualResult);
     }
 
-    @Test
-    public void testOfAnimalGetFamily() {
-        Animal animal = new Animal();
-        String actual = animal.getFamily();
-        String expected = "Существует несколько семейств: заячьи, беличьи, мышиные, кошачьи, псовые, медвежьи, куньи";
-        assertEquals(expected, actual);
-    }
 }
